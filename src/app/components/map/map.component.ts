@@ -1,17 +1,26 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, NgModule } from '@angular/core';
 import * as L from 'leaflet'
 import "leaflet/dist/leaflet.css";
+import { CoordsServicesComponent } from '../../services/coords-services/coords-services.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [],
+  imports: [ CoordsServicesComponent, HttpClientModule],
   templateUrl: './map.component.html',
-  styleUrl: './map.component.css'
+  styleUrl: './map.component.css',
+  providers: [CoordsServicesComponent]
 })
+
 export class MapComponent implements AfterViewInit {
+
+  constructor(
+    private coordinatesService: CoordsServicesComponent
+  ) { }
+
  // @ts-ignore
- private map: L.Map; // Utilisation du type correct pour TypeScript
+ private map: L.Map;
 
  private smallIcon = new L.Icon({
    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
@@ -31,6 +40,11 @@ export class MapComponent implements AfterViewInit {
    if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition((position) => {
        const coords = { lat: position.coords.latitude, lng: position.coords.longitude };
+       this.coordinatesService.coordinates(coords.lat, coords.lng).subscribe(result => {
+        console.log(result, 'Coordonnées envoyées')
+       }, error => {
+        console.log(error, "erreur t'es juste une teub");
+       })
        this.createMap(coords);
        this.addMarker({ coords, text: "Vous êtes ici", open: true });
      }, (error) => {

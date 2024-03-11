@@ -7,7 +7,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
   { path: '', component: SignInComponent },
-  { path: 'home', component: HomePageComponent },
+  { path: 'home', component: HomePageComponent},
   { path: 'history', component: HistoryComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: NotFoundComponent },

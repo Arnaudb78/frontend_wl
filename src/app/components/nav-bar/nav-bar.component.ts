@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,4 +10,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })
-export class NavBarComponent {}
+export class NavBarComponent {
+  auth = inject(AuthService);
+  name = JSON.parse(sessionStorage.getItem("loggedInUser")!).name;
+  userProfilImg = JSON.parse(sessionStorage.getItem("loggedInUser")!).picture;
+  email = JSON.parse(sessionStorage.getItem("loggedInUser")!).email;
+  signOut(){
+    sessionStorage.removeItem("loggedInUser");
+    this.auth.signOut();
+  }
+}

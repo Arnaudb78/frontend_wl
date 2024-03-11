@@ -16,7 +16,9 @@ export class CoordsServicesComponent {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) { 
+  }
+
 
   coordinates(lat: number, lng: number) {
     const coordsData = {
@@ -39,6 +41,4 @@ export class CoordsServicesComponent {
       )
     });
   }
-  
-
 }

@@ -10,4 +10,5 @@ import { HistoryBarComponent } from '../../components/history-bar/history-bar.co
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+}

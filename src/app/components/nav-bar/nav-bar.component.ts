@@ -15,7 +15,6 @@ import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 export class NavBarComponent {
   auth = inject(AuthService);
   name: string | null;
-  userProfilImg: string | null;
   email: string | null;
   faBars = faBars;
   faRightFromBracket = faRightFromBracket;
@@ -26,11 +25,10 @@ export class NavBarComponent {
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     if (loggedInUser) {
       this.name = JSON.parse(loggedInUser).name;
-      this.userProfilImg = JSON.parse(loggedInUser).picture;
       this.email = JSON.parse(loggedInUser).email;
+      console.log(this.name, this.email);
     } else {
       this.name = null;
-      this.userProfilImg = null;
       this.email = null;
     }
   }

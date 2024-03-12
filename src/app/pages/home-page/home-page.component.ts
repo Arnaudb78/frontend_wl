@@ -11,4 +11,8 @@ import { HistoryBarComponent } from '../../components/history-bar/history-bar.co
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
+  constructor() {
+  const loggedInUser = sessionStorage.getItem('loggedInUser');
+  if(!loggedInUser) window.location.href = '/';
+}
 }

@@ -8,4 +8,9 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.css',
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+  constructor() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if(!loggedInUser) window.location.href = '/';
+  }
+}

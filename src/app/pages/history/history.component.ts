@@ -8,4 +8,9 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
   templateUrl: './history.component.html',
   styleUrl: './history.component.css',
 })
-export class HistoryComponent {}
+export class HistoryComponent {
+  constructor() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if(!loggedInUser) window.location.href = '/';
+  }
+}

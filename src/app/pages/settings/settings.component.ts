@@ -8,4 +8,9 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
 })
-export class SettingsComponent {}
+export class SettingsComponent {
+  constructor() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if(!loggedInUser) window.location.href = '/';
+  }
+}

@@ -12,11 +12,25 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class NavBarComponent {
   auth = inject(AuthService);
-  name = JSON.parse(sessionStorage.getItem("loggedInUser")!).name;
-  userProfilImg = JSON.parse(sessionStorage.getItem("loggedInUser")!).picture;
-  email = JSON.parse(sessionStorage.getItem("loggedInUser")!).email;
-  signOut(){
-    sessionStorage.removeItem("loggedInUser");
+  name: string | null;
+  userProfilImg: string | null;
+  email: string | null;
+
+  constructor() {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      this.name = JSON.parse(loggedInUser).name;
+      this.userProfilImg = JSON.parse(loggedInUser).picture;
+      this.email = JSON.parse(loggedInUser).email;
+    } else {
+      this.name = null;
+      this.userProfilImg = null;
+      this.email = null;
+    }
+  }
+
+  signOut() {
+    sessionStorage.removeItem('loggedInUser');
     this.auth.signOut();
   }
 }

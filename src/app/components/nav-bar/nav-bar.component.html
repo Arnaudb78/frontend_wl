@@ -4,7 +4,9 @@
     <li><a aria-current="page" [routerLink]="['/history']">History</a></li>
     <li><a aria-current="page" [routerLink]="['/settings']">Settings</a></li>
   </ul>
-  <div><p class="text-white">Bienvenue {{name}} {{email}} </p></div>
+  <div *ngIf="name">
+    <p class="text-white">Bienvenue {{ name }} {{ email }}</p>
+  </div>
   <div class="w-5 absolute top-4 right-6">
     <a (click)="signOut()" [routerLink]="['/']">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

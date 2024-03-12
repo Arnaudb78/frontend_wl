@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,7 +17,10 @@ export class NavBarComponent {
   name: string | null;
   userProfilImg: string | null;
   email: string | null;
-  faUser = faUser;
+  faBars = faBars;
+  faRightFromBracket = faRightFromBracket;
+
+  menuVisible = false;
 
   constructor() {
     const loggedInUser = sessionStorage.getItem('loggedInUser');
@@ -35,5 +38,9 @@ export class NavBarComponent {
   signOut() {
     sessionStorage.removeItem('loggedInUser');
     this.auth.signOut();
+  }
+
+  toggle() {
+    this.menuVisible = !this.menuVisible;
   }
 }

@@ -1,3 +1,15 @@
-<div class="">
-  <div id="map" class="h-screen w-screen"></div>
+<div
+  class="h-screen w-screen flex flex-col justify-center items-start p-mobile"
+>
+  <div id="map" class="mobile-map"></div>
+  <div
+    class="w-full h-fit p-mobile flex justify-center items-center rounded-md"
+  >
+    <button
+      [routerLink]="['/history']"
+      class="p-3 transition-all duration-500 ease-in-out font-bold text-white hover:bg-primary hover:text-white"
+    >
+      Historique
+    </button>
+  </div>
 </div>

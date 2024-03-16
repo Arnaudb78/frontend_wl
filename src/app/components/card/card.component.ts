@@ -33,13 +33,10 @@ export class CardComponent implements OnInit {
 
   handleLogin(response: any) {
     if (!response) throw new Error('No response from Google Accounts');
-    // decode the token to get the payload
     const payLoad = this.decodeToken(response.credential);
     // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
-    //save the user to the backend
     this.connectToBackend(payLoad);
-    // navigate to the home page
     this.router.navigate(['/home']);
   }
 

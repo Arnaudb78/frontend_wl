@@ -36,7 +36,35 @@ export class CardComponent implements OnInit {
     const payLoad = this.decodeToken(response.credential);
     // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
+    //save the user to the backend
+    this.connectToBackend(payLoad);
     // navigate to the home page
     this.router.navigate(['/home']);
+  }
+
+  async connectToBackend(data: object) {
+    try {
+      // Make a request to your backend API
+      const response = await fetch('http://localhost:5001/user/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      
+      // Check if the request was successful
+      if (response.ok) {
+        // Process the response data
+        const data = await response.json();
+        
+        // Do something with the data
+        
+      } else {
+        throw new Error('Failed to connect to the backend');
+      }
+    } catch (error) {
+      console.error('Error connecting to the backend:', error);
+    }
   }
 }

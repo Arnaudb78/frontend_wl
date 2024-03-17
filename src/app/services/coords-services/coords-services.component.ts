@@ -27,9 +27,7 @@ export class CoordsServicesComponent {
     };
 
     return new Observable<boolean | null>(observer => {
-      console.log('sending coords', coordsData);
-      console.log(environnement.API_URL + this.COORDS_URL);
-      this.httpClient.post(environnement.API_URL + this.COORDS_URL, coordsData).subscribe(
+      this.httpClient.post(environnement.BACK_URL + this.COORDS_URL, coordsData).subscribe(
         (response: any) => {
           observer.next(response);
           observer.complete();

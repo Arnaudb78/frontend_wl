@@ -35,13 +35,32 @@ export class CardComponent implements OnInit {
     const payLoad = this.decodeToken(response.credential);
     // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
-    this.connectToBackend(payLoad);
-    this.router.navigate(['/home']);
+    if(!this.connectWithGoogle(payLoad)) throw new Error('User not found');
+    // this.inscriptionWithGoogle(payLoad);
   }
 
-  async connectToBackend(data: object) {
+  async connectWithGoogle(data: object) {
+    
+    if(!data) throw new Error('No data received');
+
+    const response = await fetch('http://localhost:5001/user/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({data})
+    });
+
+    if(!response.ok) throw new Error('User not found');
+    const responseData = await response.json();
+    if (!responseData.result)  throw new Error('User not found');
+    this.router.navigate(['/home']);
+  }
+  
+
+
+  async inscriptionWithGoogle(data: object) {
     try {
-      // Make a request to your backend API
       const response = await fetch('http://localhost:5001/user/', {
         method: 'POST',
         headers: {
@@ -50,16 +69,9 @@ export class CardComponent implements OnInit {
         body: JSON.stringify(data)
       });
       
-      // Check if the request was successful
-      if (response.ok) {
-        // Process the response data
-        const data = await response.json();
-        
-        // Do something with the data
-        
-      } else {
-        throw new Error('Failed to connect to the backend');
-      }
+      if(!response.ok) throw new Error('User email not verified');
+      this.router.navigate(['/home']);
+      
     } catch (error) {
       console.error('Error connecting to the backend:', error);
     }

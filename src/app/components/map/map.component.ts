@@ -48,9 +48,6 @@ export class MapComponent implements AfterViewInit {
             (result) => {
               console.log(result, 'Coordonnées envoyées');
             },
-            (error) => {
-              console.log(error, "erreur t'es juste une teub");
-            }
           );
           this.createMap(coords);
           this.addMarker({ coords, text: 'Vous êtes ici', open: true });

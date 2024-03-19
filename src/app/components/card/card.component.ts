@@ -30,48 +30,46 @@ export class CardComponent implements OnInit {
     return JSON.parse(atob(token.split('.')[1]));
   }
 
-  handleLogin(response: any) {
+  async handleLogin(response: any) {
     if (!response) throw new Error('No response from Google Accounts');
     const payLoad = this.decodeToken(response.credential);
     // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
-    if(!this.connectWithGoogle(payLoad)) throw new Error('User not found');
-    // this.inscriptionWithGoogle(payLoad);
+    await this.connectWithGoogle(payLoad);
+    await this.inscriptionWithGoogle(payLoad);
   }
 
-  async connectWithGoogle(data: object) {
-    
-    if(!data) throw new Error('No data received');
+  async connectWithGoogle(data: { email: string }) {
+    if (!data) throw new Error('No data received');
+    const email = encodeURIComponent(data.email);
+    const response = await fetch(
+      `http://localhost:5001/user/email?email=${email}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
-    const response = await fetch('http://localhost:5001/user/email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({data})
-    });
-
-    if(!response.ok) throw new Error('User not found');
+    if (!response.ok) throw new Error('User not found');
     const responseData = await response.json();
-    if (!responseData.result)  throw new Error('User not found');
+    if (!responseData.result) throw new Error('User not found');
     this.router.navigate(['/home']);
   }
-  
-
 
   async inscriptionWithGoogle(data: object) {
     try {
       const response = await fetch('http://localhost:5001/user/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
-      
-      if(!response.ok) throw new Error('User email not verified');
+
+      if (!response.ok) throw new Error('User email not verified');
       this.router.navigate(['/home']);
-      
     } catch (error) {
       console.error('Error connecting to the backend:', error);
     }

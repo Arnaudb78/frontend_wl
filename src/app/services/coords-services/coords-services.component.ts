@@ -8,35 +8,32 @@ import { environnement } from '../../../environnement/environnement';
   standalone: true,
   imports: [],
   templateUrl: './coords-services.component.html',
-  styleUrl: './coords-services.component.css'
+  styleUrl: './coords-services.component.css',
 })
 export class CoordsServicesComponent {
-
   COORDS_URL = '/api/coords';
 
-  constructor(
-    private httpClient: HttpClient
-  ) { 
-  }
-
+  constructor(private httpClient: HttpClient) {}
 
   coordinates(lat: number, lng: number) {
     const coordsData = {
       lat: lat,
-      lon: lng
+      lon: lng,
     };
 
-    return new Observable<boolean | null>(observer => {
-      this.httpClient.post(environnement.BACK_URL + this.COORDS_URL, coordsData).subscribe(
-        (response: any) => {
-          observer.next(response);
-          observer.complete();
-        },
-        (error) => {
-          observer.error(error);
-          observer.complete();
-        }
-      )
+    return new Observable<boolean | null>((observer) => {
+      this.httpClient
+        .post(environnement.BACK_URL + this.COORDS_URL, coordsData)
+        .subscribe(
+          (response: any) => {
+            observer.next(response);
+            observer.complete();
+          },
+          (error) => {
+            observer.error(error);
+            observer.complete();
+          }
+        );
     });
   }
 }

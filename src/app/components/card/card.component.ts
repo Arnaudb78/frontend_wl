@@ -36,7 +36,6 @@ export class CardComponent implements OnInit {
     // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
     await this.connectWithGoogle(payLoad);
-    await this.inscriptionWithGoogle(payLoad);
   }
 
   async connectWithGoogle(data: { email: string }) {
@@ -52,9 +51,10 @@ export class CardComponent implements OnInit {
       }
     );
 
-    if (!response.ok) throw new Error('User not found');
+    if (!response.ok) console.log('Error connecting to the backend:', response);
     const responseData = await response.json();
-    if (!responseData.result) throw new Error('User not found');
+    console.log('Response data:', responseData);
+    if (!responseData.result) this.inscriptionWithGoogle(data);
     this.router.navigate(['/home']);
   }
 

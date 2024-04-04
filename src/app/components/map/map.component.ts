@@ -44,11 +44,12 @@ export class MapComponent implements AfterViewInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          this.coordinatesService.coordinates(coords.lat, coords.lng).subscribe(
-            (result) => {
-              console.log(result, 'Coordonnées envoyées');
-            },
-          );
+          this.coordinatesService
+            .coordinates(coords.lat, coords.lng)
+            .subscribe((result) => {
+              if (!result) throw new Error('No response from the server');
+            });
+
           this.createMap(coords);
           this.addMarker({ coords, text: 'Vous êtes ici', open: true });
         },

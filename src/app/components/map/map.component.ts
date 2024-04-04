@@ -94,13 +94,13 @@ export class MapComponent implements OnInit, OnDestroy {
         (error) => {
           console.error('Error getting location', error);
           // Fallback sur une position par défaut
-          this.createMap({ lat: 48.114384, lng: -1.669494 });
+          this.createMap({ lat: 48.8323, lng: 2.4075 });
         }
       );
     } else {
       console.error('Geolocation is not supported by this browser.');
       // Fallback sur une position par défaut
-      this.createMap({ lat: 48.114384, lng: -1.669494 });
+      this.createMap({ lat: 48.8323, lng: 2.4075 });
     }
   }
 

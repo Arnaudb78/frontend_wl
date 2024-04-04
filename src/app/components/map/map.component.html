@@ -1,8 +1,17 @@
 <div
   class="h-screen w-screen flex flex-col justify-center items-start p-mobile"
 >
-  <app-coords-services />
-
+  <div>
+    <ul>
+      <li>{{ data.city }}</li>
+      <li>{{ data.date }}</li>
+      <li>{{ data.desc }}</li>
+      <li>{{ data.humidity }}</li>
+      <li>{{ data.temp }}</li>
+      <li>{{ data.temp_min }}</li>
+      <li>{{ data.temp_max }}</li>
+    </ul>
+  </div>
   <div id="map" class="mobile-map"></div>
   <div
     class="w-full h-fit p-mobile flex justify-center items-center rounded-md"

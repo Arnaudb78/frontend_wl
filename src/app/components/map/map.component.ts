@@ -1,23 +1,50 @@
-import { AfterViewInit, Component, NgModule } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  NgModule,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { CoordsServicesComponent } from '../../services/coords-services/coords-services.component';
+import { CoordinatesService } from '../../services/coordinates-service.service';
+import { lastValueFrom } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+
+type coordData = {
+  city: string;
+  date: string;
+  desc: string;
+  temp: number;
+  temp_min: number;
+  temp_max: number;
+  humidity: number;
+};
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CoordsServicesComponent, HttpClientModule, RouterLink],
+  imports: [HttpClientModule, RouterLink],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
-  providers: [CoordsServicesComponent],
+  providers: [],
 })
-export class MapComponent implements AfterViewInit {
-  constructor(private coordinatesService: CoordsServicesComponent) {}
+export class MapComponent implements OnInit, OnDestroy {
+  constructor(private coordinatesService: CoordinatesService) {}
+
+  ngOnInit(): void {
+    this.getCurrentLocation();
+  }
+
+  ngOnDestroy(): void {
+    this.map.remove();
+  }
 
   // @ts-ignore
   private map: L.Map;
+
+  public data!: coordData;
 
   private smallIcon = new L.Icon({
     iconUrl:
@@ -35,20 +62,31 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.getCurrentLocation();
   }
-
+  async getData(lat: number, lng: number) {
+    let res = await lastValueFrom(
+      this.coordinatesService.coordinates(lat, lng)
+    );
+    console.log(res);
+    this.data = {
+      city: res.city,
+      date: res.date,
+      desc: res.desc,
+      temp: res.temp,
+      temp_min: res.temp_min,
+      temp_max: res.temp_max,
+      humidity: res.humidity,
+    };
+    return res;
+  }
   getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const coords = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          this.coordinatesService
-            .coordinates(coords.lat, coords.lng)
-            .subscribe((result) => {
-              if (!result) throw new Error('No response from the server');
-            });
+          this.data = await this.getData(coords.lat, coords.lng);
 
           this.createMap(coords);
           this.addMarker({ coords, text: 'Vous êtes ici', open: true });
@@ -68,6 +106,10 @@ export class MapComponent implements AfterViewInit {
 
   createMap(coords: { lat: number; lng: number }) {
     const zoomLevel = 17;
+
+    if (this.map) {
+      this.map.remove();
+    }
 
     this.map = L.map('map', {
       center: [coords.lat, coords.lng],

@@ -1,6 +1,7 @@
 declare var google: any;
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { environnement } from '../../../environnement/environnement';
 
 @Component({
   selector: 'app-card',
@@ -13,8 +14,7 @@ export class CardComponent implements OnInit {
   private router = inject(Router);
   ngOnInit(): void {
     google.accounts.id.initialize({
-      client_id:
-        '863412296645-pdjr2r8oid6tppv09gtsoi7i9ff1qkb2.apps.googleusercontent.com',
+      client_id: environnement.GOOGLE_ID,
       callback: (resp: any) => this.handleLogin(resp),
     });
 

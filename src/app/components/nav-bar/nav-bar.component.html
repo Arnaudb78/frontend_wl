@@ -1,19 +1,27 @@
-<nav class="fixed top-0 left-0 bg-back w-screen border-b border-b-slate-300">
+<nav
+  class="z-50 fixed top-0 left-0 bg-back w-screen border-b border-b-slate-300"
+>
   <div class="w-full flex justify-between text-white p-4 relative">
-    <fa-icon (click)="toggle()" [icon]="faBars" class="absolute top-4 left-4 text-2xl"></fa-icon>
+    <fa-icon
+      (click)="toggle()"
+      [icon]="faBars"
+      class="absolute top-4 left-4 text-2xl"
+    ></fa-icon>
     <div class="w-screen flex justify-start items-start flex-col gap-4">
       <h2 class="text-xl font-bold w-fit mx-auto">WeatherLoc'</h2>
       <ul
-      id="menu"
-      [class.hidden]="!menuVisible"
-      class="flex justify-start items-start flex-col gap-4 text-white text-xl font-bold px-4"
+        id="menu"
+        [class.hidden]="!menuVisible"
+        class="flex justify-start items-start flex-col gap-4 text-white text-xl font-bold px-4"
       >
         <li><a aria-current="page" [routerLink]="['/home']">Home</a></li>
         <li><a aria-current="page" [routerLink]="['/history']">History</a></li>
-        <li><a aria-current="page" [routerLink]="['/settings']">Settings</a></li>
+        <li>
+          <a aria-current="page" [routerLink]="['/settings']">Settings</a>
+        </li>
       </ul>
-  </div>
-    
+    </div>
+
     <!-- <div *ngIf="name">
       <p class="text-white">Bienvenue {{ name }} {{ email }}</p>
     </div> -->

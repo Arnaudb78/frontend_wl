@@ -11,6 +11,7 @@ import { CoordinatesService } from '../../services/coordinates-service.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 type coordData = {
   city: string;
@@ -25,13 +26,18 @@ type coordData = {
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [HttpClientModule, RouterLink],
+  imports: [HttpClientModule, RouterLink, NgIf],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
   providers: [],
 })
 export class MapComponent implements OnInit, OnDestroy {
   constructor(private coordinatesService: CoordinatesService) {}
+  showInfo: boolean = false;
+
+  toggleInfo() {
+    this.showInfo = !this.showInfo;
+  }
 
   ngOnInit(): void {
     this.getCurrentLocation();
@@ -63,10 +69,18 @@ export class MapComponent implements OnInit, OnDestroy {
     this.getCurrentLocation();
   }
   async getData(lat: number, lng: number) {
-    let res = await lastValueFrom(
-      this.coordinatesService.coordinates(lat, lng)
-    );
-    console.log(res);
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser')!);
+    const userEmail = loggedInUser['email'];
+    console.log('User email:', userEmail);
+
+    const data = {
+      lat: lat,
+      lon: lng,
+      email: userEmail,
+    };
+
+    let res = await lastValueFrom(this.coordinatesService.coordinates(data));
+
     this.data = {
       city: res.city,
       date: res.date,

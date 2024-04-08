@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { CoordinatesService } from '../../services/coordinates-service.service';
+import { WeatherService } from '../../services/weather-service.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
@@ -32,7 +32,7 @@ type coordData = {
   providers: [],
 })
 export class MapComponent implements OnInit, OnDestroy {
-  constructor(private coordinatesService: CoordinatesService) {}
+  constructor(private weatherService: WeatherService) {}
   showInfo: boolean = false;
 
   toggleInfo() {
@@ -71,15 +71,10 @@ export class MapComponent implements OnInit, OnDestroy {
   async getData(lat: number, lng: number) {
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     const userEmail = loggedInUser['email'];
-    console.log('User email:', userEmail);
 
-    const data = {
-      lat: lat,
-      lon: lng,
-      email: userEmail,
-    };
-
-    let res = await lastValueFrom(this.coordinatesService.coordinates(data));
+    const res = await lastValueFrom(
+      this.weatherService.coordinates(lat, lng, userEmail)
+    );
 
     this.data = {
       city: res.city,

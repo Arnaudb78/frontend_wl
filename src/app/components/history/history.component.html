@@ -1,1 +1,11 @@
-<p>history 🧪 !</p>
+<div>
+  <ul *ngFor="let data of historyData">
+    <li>{{ data.date }}</li>
+    <li>{{ data.city }}</li>
+    <li>{{ data.desc }}</li>
+    <li>{{ data.temp }}</li>
+    <li>{{ data.temp_min }}</li>
+    <li>{{ data.temp_max }}</li>
+    <li>{{ data.humidity }}</li>
+  </ul>
+</div>

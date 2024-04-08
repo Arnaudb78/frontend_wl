@@ -26,7 +26,6 @@ export class NavBarComponent {
     if (loggedInUser) {
       this.name = JSON.parse(loggedInUser).name;
       this.email = JSON.parse(loggedInUser).email;
-      console.log(this.name, this.email);
     } else {
       this.name = null;
       this.email = null;

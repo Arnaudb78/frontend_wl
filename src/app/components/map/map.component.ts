@@ -65,9 +65,6 @@ export class MapComponent implements OnInit, OnDestroy {
     shadowSize: [41, 41],
   });
 
-  ngAfterViewInit(): void {
-    this.getCurrentLocation();
-  }
   async getData(lat: number, lng: number) {
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     const userEmail = loggedInUser['email'];

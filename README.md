@@ -1,27 +1,56 @@
-# RedProject
+WEATHERLOC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
+Bienvenue dans le projet de développement d'une application responsive de géolocalisation et météo utilisant Angular, ExpressJS, une base de données NoSQL, Leaflet pour la géolocalisation, et l'API OpenWeather pour les conditions météorologiques. Ce README vous guidera à travers le processus de configuration, d'utilisation, et des choix technologiques réalisés pour garantir la sécurité et la conformité aux réglementations, notamment le RGPD.
 
-## Development server
+# Prérequis
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
-## Code scaffolding
+```
+Node.js et npm
+Angular CLI
+MongoDB ou une base de données NoSQL compatible avec ExpressJS
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Configuration du Projet
 
-## Build
+Clonez les dépôts depuis GitHub.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+FRONTEND_URL -> `https://github.com/Arnaudb78/frontend_wl.git`
+BACKEND_URL -> git clone `https://github.com/Arnaudb78/backend_wl.git`
 
-## Running unit tests
+# Installez les dépendances pour le frontend et le backend.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+cd weatherloc/frontend_wl
+npm install 
 
-## Running end-to-end tests
+cd ../backend_wl
+npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Sécurité et Conformité
 
-## Further help
+Les fonctionnalités de sécurité incluent l'utilisation de JWT (JSON Web Tokens) pour authentifier les utilisateurs, le chiffrement des données sensibles, et la validation côté serveur. La conformité au RGPD est assurée par la gestion transparente des données utilisateur et l'obtention du consentement via les conditions d'utilisation.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Microservices
+
+Le projet est conçu avec des microservices pour une scalabilité horizontale et une gestion optimale des performances. Chaque service (géolocalisation, météo, utilisateur) est indépendant pour garantir une extensibilité facile.
+
+# Conditions d'Utilisation et RGPD
+
+Avant toute utilisation, les utilisateurs doivent accepter les conditions d'utilisation. Le traitement des données est conforme au RGPD, garantissant la confidentialité et le contrôle des données personnelles.
+
+# Connexion via Google Sign-In
+
+La connexion des utilisateurs s'effectue via Google Sign-In, assurant une authentification sécurisée et simplifiée.
+
+# Déploiement
+
+Pour déployer l'application, veuillez suivre les instructions de déploiement pour Angular et ExpressJS.
+
+# Contributions
+
+Les contributions sont les bienvenues. Veuillez ouvrir une demande d'extraction (pull request) pour discuter des changements majeurs.
+
+# Licence
+
+Ce projet est sous licence MIT.

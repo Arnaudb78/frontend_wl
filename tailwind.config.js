@@ -16,6 +16,9 @@ module.exports = {
       padding: {
         mobile: "48px 24px",
       },
+      margin: {
+        mobile: "48px 24px",
+      },
     },
   },
   plugins: [],

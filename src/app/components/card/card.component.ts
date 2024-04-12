@@ -53,7 +53,6 @@ export class CardComponent implements OnInit {
 
     if (!response.ok) console.log('Error connecting to the backend:', response);
     const responseData = await response.json();
-    console.log('Response data:', responseData);
     if (!responseData.result) this.inscriptionWithGoogle(data);
     this.router.navigate(['/home']);
   }

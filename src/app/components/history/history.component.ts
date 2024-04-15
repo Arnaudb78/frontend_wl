@@ -29,6 +29,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.weatherService.getHistory(userEmail)
     );
     if (!history) throw new Error('No history found');
-    return (this.historyData = history);
+    this.historyData = history.map((entry) => {
+      return {
+        ...entry,
+        date: new Date(Number.parseInt(entry.date)).toLocaleString('fr-FR'),
+      };
+    });
   }
 }

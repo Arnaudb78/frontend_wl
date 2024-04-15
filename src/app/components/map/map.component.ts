@@ -1,17 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  NgModule,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { WeatherService } from '../../services/weather-service.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, DatePipe } from '@angular/common';
 
 type coordData = {
   city: string;
@@ -29,10 +23,13 @@ type coordData = {
   imports: [HttpClientModule, RouterLink, NgIf],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
-  providers: [],
+  providers: [DatePipe],
 })
 export class MapComponent implements OnInit, OnDestroy {
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    public datePipe: DatePipe
+  ) {}
   showInfo: boolean = false;
 
   toggleInfo() {
@@ -69,13 +66,12 @@ export class MapComponent implements OnInit, OnDestroy {
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     const userEmail = loggedInUser['email'];
 
-    const res = await lastValueFrom(
+    let res = await lastValueFrom(
       this.weatherService.coordinates(lat, lng, userEmail)
     );
-
-    this.data = {
+    res = {
       city: res.city,
-      date: res.date,
+      date: new Date(Number.parseInt(res.date)).toLocaleString('fr-FR'),
       desc: res.desc,
       temp: res.temp,
       temp_min: res.temp_min,
@@ -93,7 +89,6 @@ export class MapComponent implements OnInit, OnDestroy {
             lng: position.coords.longitude,
           };
           this.data = await this.getData(coords.lat, coords.lng);
-
           this.createMap(coords);
           this.addMarker({ coords, text: 'Vous êtes ici', open: true });
         },

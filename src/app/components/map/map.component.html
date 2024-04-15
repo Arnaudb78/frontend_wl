@@ -1,6 +1,6 @@
 <div class="h-screen w-screen flex flex-col justify-start items-start p-mobile">
   <div class="bg-secondary text-white p-2">
-    <p>Vos données métérologiques sont actualisées toutes les 30 minutes.</p>
+    <p>Vos données métérologiques sont actualisées toutes les 10 minutes.</p>
   </div>
   <div id="map" class="-z-10 mobile-map"></div>
   <div
@@ -31,6 +31,10 @@
         <li>
           Température maximum :
           <span class="font-bold text-secondary">{{ data.temp_max }}°</span>
+        </li>
+        <li>
+          Date d'actualisation :
+          <span class="font-bold text-secondary">{{ data.date }}</span>
         </li>
         <li>
           <button

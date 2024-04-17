@@ -59,7 +59,7 @@ export class CardComponent implements OnInit {
 
   async inscriptionWithGoogle(data: object) {
     try {
-      const response = await fetch('http://localhost:5001/user/', {
+      const response = await fetch('http://77.37.87.171:5001/user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

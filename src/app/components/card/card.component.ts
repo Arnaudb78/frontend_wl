@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { environnement } from '../../../environnement/environnement';
 
+
 @Component({
   selector: 'app-card',
   standalone: true,

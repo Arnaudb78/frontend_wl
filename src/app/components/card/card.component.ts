@@ -34,7 +34,6 @@ export class CardComponent implements OnInit {
   async handleLogin(response: any) {
     if (!response) throw new Error('No response from Google Accounts');
     const payLoad = this.decodeToken(response.credential);
-    // store the user in session storage
     sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
     await this.connectWithGoogle(payLoad);
   }

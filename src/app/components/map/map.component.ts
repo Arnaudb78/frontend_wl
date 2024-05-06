@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-// import 'leaflet/dist/leaflet.css';
-
 import { WeatherService } from '../../services/weather-service.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { NgIf, DatePipe } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faLocationDot, faWater, faTemperatureEmpty, faTemperatureHigh, faTemperatureThreeQuarters, faFileWord} from '@fortawesome/free-solid-svg-icons';
 
 type coordData = {
   city: string;
@@ -21,12 +21,19 @@ type coordData = {
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [HttpClientModule, RouterLink, NgIf],
+  imports: [HttpClientModule, RouterLink, NgIf, FontAwesomeModule],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
   providers: [DatePipe],
 })
 export class MapComponent implements OnInit, OnDestroy {
+  faLocationDot = faLocationDot;
+  faWater = faWater;
+  faTemperatureEmpty = faTemperatureEmpty;
+  faTemperatureHigh = faTemperatureHigh;
+  faTemperatureThreeQuarters = faTemperatureThreeQuarters;
+  faFileWord = faFileWord;
+
   constructor(
     private weatherService: WeatherService,
     public datePipe: DatePipe
@@ -91,7 +98,7 @@ export class MapComponent implements OnInit, OnDestroy {
           };
           this.data = await this.getData(coords.lat, coords.lng);
           this.createMap(coords);
-          this.addMarker({ coords, text: 'Vous êtes ici', open: true });
+          this.addMarker({ coords, text: "Votre position", open: true });
         },
         (error) => {
           console.error('Error getting location', error);

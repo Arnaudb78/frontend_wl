@@ -7,8 +7,3 @@
   font-family: "Akira";
   src: url("/src/assets/font/Akira.otf") format("otf");
 }
-
-.mobile-map {
-  height: 50%;
-  width: 100%;
-}

@@ -8,17 +8,14 @@
       class="absolute top-4 left-4 text-2xl"
     ></fa-icon>
     <div class="w-screen flex justify-start items-start flex-col gap-4">
-      <h2 class="text-xl font-bold w-fit mx-auto">WeatherLoc'</h2>
+      <img class="text-xl font-bold  mx-auto w-40 h-auto" src="../../../assets/images/logo-wl.png" alt="logo WeatherLoc">
       <ul
         id="menu"
         [class.hidden]="!menuVisible"
         class="flex justify-start items-start flex-col gap-4 text-white text-xl font-bold px-4"
       >
-        <li><a aria-current="page" [routerLink]="['/home']">Home</a></li>
-        <li><a aria-current="page" [routerLink]="['/history']">History</a></li>
-        <li>
-          <a aria-current="page" [routerLink]="['/settings']">Settings</a>
-        </li>
+        <li><a aria-current="page" [routerLink]="['/home']">Accueil</a></li>
+        <li><a aria-current="page" [routerLink]="['/history']">Historique</a></li>
       </ul>
     </div>
 

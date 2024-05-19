@@ -1,8 +1,12 @@
 <div>
   <main class="bg-back_secondary w-full">
     <app-nav-bar />
-    <section class="min-h-[calc(100vh-57px)] flex justify-center items-center">
+    <section class="min-h-[calc(100vh-57px)] flex flex-col justify-center items-center gap-4">
+      <div class="bg-txt p-2 rounded-md">
+        <p>En vous connectant, vous acceptez les <a class="underline" href="/cgu">CGU</a>.</p>
+      </div>
       <app-card />
+      <app-footer />
     </section>
   </main>
 </div>

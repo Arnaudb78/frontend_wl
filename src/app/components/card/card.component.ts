@@ -42,7 +42,7 @@ export class CardComponent implements OnInit {
     if (!data) throw new Error('No data received');
     const email = encodeURIComponent(data.email);
     const response = await fetch(
-      `http://localhost:5001/user/email?email=${email}`,
+      `https://backend-wl-app-02b692a9fe59.herokuapp.com/user/email?email=${email}`,
       {
         method: 'GET',
         headers: {
@@ -59,7 +59,7 @@ export class CardComponent implements OnInit {
 
   async inscriptionWithGoogle(data: object) {
     try {
-      const response = await fetch('http://localhost:5001/user/', {
+      const response = await fetch('https://backend-wl-app-02b692a9fe59.herokuapp.com/user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

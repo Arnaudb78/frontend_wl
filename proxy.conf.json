@@ -1,0 +1,6 @@
+{
+    "/api": {
+      "target": "https://backend-wl-app-02b692a9fe59.herokuapp.com",
+      "secure": false
+    }
+  }
